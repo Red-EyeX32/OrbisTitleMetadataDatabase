@@ -28,9 +28,9 @@
 #include "aes.h"
 #include "sha1.h"
 
-#define SCE_TITLE_METADATA_LINK_MAX_LEN    256
-#define SCE_TITLE_METADATA_HMAC_DIGEST_LEN 20
-#define SCE_TITLE_METADATA_HMAC_KEY_LEN    64
+#define TITLE_METADATA_LINK_MAX_LEN    256
+#define TITLE_METADATA_HMAC_DIGEST_LEN 20
+#define TITLE_METADATA_HMAC_KEY_LEN    64
 
 static const char tm_key[27] = "OrbisTitleMetadataDatabase";
 
@@ -219,15 +219,15 @@ extern "C" {
 	__declspec(dllexport) unsigned char *RetrieveKey(bool encrypt) {
 
 		if (encrypt) {
-			tm_encrypt_block(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, 0);
-			tm_encrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN);
+			tm_encrypt_block(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, 0);
+			tm_encrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN);
 
-			sceSblSsEncryptWithPortability(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
+			sceSblSsEncryptWithPortability(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
 		} else {
-			sceSblSsDecryptWithPortability(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
+			sceSblSsDecryptWithPortability(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
 
-			tm_decrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN);
-			tm_decrypt_block(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, 0);
+			tm_decrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN);
+			tm_decrypt_block(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, 0);
 		}
 
 		return tmdb_json_hmac_key;
@@ -249,42 +249,31 @@ extern "C" {
 		}
 		printf("[*] Generating link for np_title_id: %s\n\n", np_title_id);
 #endif
-		sceSblSsDecryptWithPortability(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
+		sceSblSsDecryptWithPortability(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
 
-		tm_decrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN);
-		tm_decrypt_block(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, 0);
+		tm_decrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN);
+		tm_decrypt_block(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, 0);
 		
 		u8 digest[20];
 		const char *json_link;
 
-		json_link = (const char*)malloc(SCE_TITLE_METADATA_LINK_MAX_LEN);
+		json_link = (const char*)malloc(TITLE_METADATA_LINK_MAX_LEN);
 
-		memset(digest, 0, SCE_TITLE_METADATA_HMAC_DIGEST_LEN);
-		memset((void*)json_link, 0, SCE_TITLE_METADATA_LINK_MAX_LEN);
+		memset(digest, 0, TITLE_METADATA_HMAC_DIGEST_LEN);
+		memset((void*)json_link, 0, TITLE_METADATA_LINK_MAX_LEN);
 
-#if _DEBUG
-		/*
-		printf("SHA-1 HMAC Key: ");
-		for (int i = 0; i < SCE_TITLE_METADATA_HMAC_KEY_LEN; ++i)
-			printf("%02x", tmdb_json_hmac_key[i]);
-
-		printf("\n");
-		*/
-		hex_dump("tmdb_json_hmac_key", tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN);
-#endif
-
-		snprintfcat((char*)json_link, SCE_TITLE_METADATA_LINK_MAX_LEN, "http://tmdb.np.dl.playstation.net/tmdb2/%s_", np_title_id);
+		snprintfcat((char*)json_link, TITLE_METADATA_LINK_MAX_LEN, "http://tmdb.np.dl.playstation.net/tmdb2/%s_", np_title_id);
 
 		// Use a standard implementation of SHA-1 HMAC.
-		mbedtls_sha1_hmac(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, (u8*)np_title_id, strlen(np_title_id), digest);
-		for (int i = 0; i < SCE_TITLE_METADATA_HMAC_DIGEST_LEN; ++i)
-			snprintfcat((char*)json_link, SCE_TITLE_METADATA_LINK_MAX_LEN, "%02X", digest[i]);
+		mbedtls_sha1_hmac(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, (u8*)np_title_id, strlen(np_title_id), digest);
+		for (int i = 0; i < TITLE_METADATA_HMAC_DIGEST_LEN; ++i)
+			snprintfcat((char*)json_link, TITLE_METADATA_LINK_MAX_LEN, "%02X", digest[i]);
 
-		snprintfcat((char*)json_link, SCE_TITLE_METADATA_LINK_MAX_LEN, "/%s.json", np_title_id);
-		tm_encrypt_block(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, 0);
-		tm_encrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN);
+		snprintfcat((char*)json_link, TITLE_METADATA_LINK_MAX_LEN, "/%s.json", np_title_id);
+		tm_encrypt_block(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, 0);
+		tm_encrypt_data(tm_key, strlen(tm_key), tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN);
 
-		sceSblSsEncryptWithPortability(tmdb_json_hmac_key, SCE_TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
+		sceSblSsEncryptWithPortability(tmdb_json_hmac_key, TITLE_METADATA_HMAC_KEY_LEN, aes_iv);
 
 #ifdef _DEBUG
 		printf("\n\n[*] The link has been generated successfully\n\n");
