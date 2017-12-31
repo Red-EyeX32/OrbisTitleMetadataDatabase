@@ -42,11 +42,6 @@ namespace OrbisTitleMetadataDatabase
         private TitleMetadataDatabase tmdb;
 
         private CultureInfo culture;
-        //private static byte[] tmdb_json_hmac_key;
-
-
-        //[DllImport("libSceTitleMetadataDatabase.dll", CallingConvention = CallingConvention.Cdecl)]
-        //public unsafe static extern byte* RetrieveKey(bool encrypt);
 
         [DllImport("libSceTitleMetadataDatabase.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr tmdb_gen_link(string np_title_id);
@@ -54,18 +49,6 @@ namespace OrbisTitleMetadataDatabase
         public Main()
         {
             InitializeComponent();
-            
-            /*
-            unsafe {
-                tmdb_json_hmac_key = new byte[64];
-                byte* tmdb_key = EncryptKey();
-
-                for (int i = 0; i < 64; ++i)
-                    tmdb_json_hmac_key[i] = tmdb_key[i];
-            }
-
-            File.WriteAllBytes(Application.StartupPath + "\\hmac.bin", tmdb_json_hmac_key);
-            */
 
             bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_DoWork);
