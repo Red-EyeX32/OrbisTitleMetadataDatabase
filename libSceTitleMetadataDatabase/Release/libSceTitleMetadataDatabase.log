@@ -1,0 +1,9 @@
+﻿  dllmain.cpp
+     Creating library C:\Users\Alexander\source\repos\OrbisTitleMetadataDatabase\Release\libSceTitleMetadataDatabase.lib and object C:\Users\Alexander\source\repos\OrbisTitleMetadataDatabase\Release\libSceTitleMetadataDatabase.exp
+  Generating code
+  1 of 34 functions ( 2.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  libSceTitleMetadataDatabase.vcxproj -> C:\Users\Alexander\source\repos\OrbisTitleMetadataDatabase\Release\libSceTitleMetadataDatabase.dll
+  libSceTitleMetadataDatabase.vcxproj -> C:\Users\Alexander\source\repos\OrbisTitleMetadataDatabase\Release\libSceTitleMetadataDatabase.pdb (Full PDB)

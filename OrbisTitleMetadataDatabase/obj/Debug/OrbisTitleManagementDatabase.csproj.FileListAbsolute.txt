@@ -1,0 +1,11 @@
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\bin\Debug\OrbisTitleManagementDatabase.exe.config
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\bin\Debug\OrbisTitleManagementDatabase.exe
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\bin\Debug\OrbisTitleManagementDatabase.pdb
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.csprojResolveAssemblyReference.cache
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.Main.resources
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.Properties.Resources.resources
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.csproj.GenerateResource.Cache
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.csproj.CoreCompileInputs.cache
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.exe
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\obj\Debug\OrbisTitleManagementDatabase.pdb
+C:\Users\Alexander\source\repos\OrbisTitleManagementDatabase\OrbisTitleManagementDatabase\bin\Debug\Newtonsoft.Json.dll
